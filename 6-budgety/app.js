@@ -146,7 +146,34 @@ var UIController = (function(){
         percentageLabel : '.budget__expenses--percentage',
         container :'.container',
         expensePercentageLabel : '.item__percentage'
-    }
+    };
+    
+    var formatNumber = function(num, type){
+            
+            var numSplit, int, dec, sign;
+            /*
+                + or - before number
+                exactly decimal points
+                coma separating thousands
+            */
+            num = Math.abs(num);
+            num = num.toFixed(2); //return string
+            
+            numSplit = num.split('.');
+            
+            int = numSplit[0];
+            
+            if(int.length>3){
+                int = int.substr(0, int.length-3)+','+int.substr(int.length-3,3);
+            }
+            
+            dec = numSplit[1];
+            
+            sign = type ==='exp'? '-':'+';
+            
+            return sign + ' ' + int + '.' + dec;
+            
+        }
     
     return {
         getInput: function(){
@@ -177,7 +204,7 @@ var UIController = (function(){
             //Replase the placeholder text with some actual data
             newHtml = html.replace('%id%',obj.id);
             newHtml = newHtml.replace('%description%',obj.description);
-            newHtml = newHtml.replace('%value%',obj.value);
+            newHtml = newHtml.replace('%value%', formatNumber(obj.value,type));
             
             // Insert the HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
@@ -208,9 +235,9 @@ var UIController = (function(){
         
         displayBuget : function(obj){
            
-            document.querySelector(DOMstrings.budgetLabel).textContent = obj.buget;
-            document.querySelector(DOMstrings.incomeLabel).textContent = obj.totalInc;
-            document.querySelector(DOMstrings.expenseLabel).textContent = obj.totalExp;
+            document.querySelector(DOMstrings.budgetLabel).textContent = formatNumber(obj.buget,obj.buget>0?'inc':'exp');
+            document.querySelector(DOMstrings.incomeLabel).textContent = formatNumber(obj.totalInc,'inc');
+            document.querySelector(DOMstrings.expenseLabel).textContent = formatNumber(obj.totalExp,'exp');
         
             if(obj.percentage>0){
                 document.querySelector(DOMstrings.percentageLabel).textContent = obj.percentage+'%';
@@ -230,6 +257,8 @@ var UIController = (function(){
             }
             
         }
+        
+        
     };
     
 })();
