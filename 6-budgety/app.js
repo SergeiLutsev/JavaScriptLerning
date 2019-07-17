@@ -246,11 +246,13 @@ var controller = (function(budgetCtr,UICtr){
              type = splitId[0];
              id = parseInt(splitId[1]);
              
-             // 1. delete the item from the data structure
-         budgetCtr.deleteItem(type,id);
+         // 1. delete the item from the data structure
+             budgetCtr.deleteItem(type,id);
          // 2. Delite the item from the UI
          
-         // 3. Update and show the new budget     
+         // 3. Update and show the new budget    
+             //Hello Sergei from git test
+             //try against
          }
                   
          
