@@ -176,6 +176,12 @@ var UIController = (function(){
             
         }
     
+        var nodeListForEach = function(list,colback){
+            for(var i=0; i<list.length; i++){
+                colback(list[i],i);
+            }
+        }
+    
     return {
         getInput: function(){
             return{
@@ -270,6 +276,19 @@ var UIController = (function(){
             document.querySelector(DOMstrings.dateLabel).textContent =mArr[mNum]+' '+ year;
             
             
+        },
+        
+        changeType : function(){
+            var fields = document.querySelectorAll(
+                    DOMstrings.inputType+','+
+                    DOMstrings.inputDescription+','+
+                    DOMstrings.inputValue
+                );
+            nodeListForEach(fields, function(node){
+               node.classList.toggle('red-focus'); 
+            });
+            
+            document.querySelector(DOMstrings.inputBtn).classList.toggle('red');
         }
         
     };
@@ -291,6 +310,7 @@ var controller = (function(budgetCtr,UICtr){
         });
         
         document.querySelector(DOM.container).addEventListener('click',cntrDeleteItem)
+        document.querySelector(DOM.inputType).addEventListener('change',UICtr.changeType)
     };
        
     
