@@ -244,6 +244,15 @@ var controller = (function(budgetCtr,UICtr){
         
     };
     
+    //Update expense percentages
+        var updatePercentages = function(){
+            // 1. Calculate percentages
+            
+            // 2. Read percentages from the bubget controller
+            
+            // 3. Update the UI with a new percentage
+        };
+    
      var cntrDeleteItem = function(event){
          var itemId, splitId, type, id;
          itemId = event.target.parentNode.parentNode.parentNode.parentNode.id;        
