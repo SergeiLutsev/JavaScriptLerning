@@ -13,17 +13,17 @@ var budgetController = (function(){
             this.value = value;
         };
     
-    var calculateTotal = function(type){
-        var arr, sum=0;
-        
-        arr = data.allItems[type];
-        
-        arr.forEach(function(current,index,array){
-            sum+=current.value;
-        })
-        
-        data.totals[type] = sum;
-    }
+        var calculateTotal = function(type){
+            var arr, sum=0;
+
+            arr = data.allItems[type];
+
+            arr.forEach(function(current,index,array){
+                sum+=current.value;
+            })
+
+            data.totals[type] = sum;
+        };
     
         var data = {
             allItems: {
@@ -38,7 +38,7 @@ var budgetController = (function(){
             
             buget: 0,
             percentage : -1
-        }
+        };
         
         return {
             addItem : function(type, desc, val){
