@@ -377,7 +377,7 @@ console.log(question.get(question.get('answ') === ans));
 
 ///////////////////////////////////////////////////////
 // Classes
-
+/*
 class Person{
 
     constructor(name, yearOfBirth, job){
@@ -402,12 +402,50 @@ console.log(ser.yearNow);
 
 Person.seyHallo();
 
+*/
 
 
+/////////////////////////////////////////////////////
+// Classes with subclasses
+//
 
 
+class Person{
 
+    constructor(name, yearOfBirth, job){
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+        this.yearNow = new Date().getFullYear();
+    }
+    
+    calcAge(){
+        return this.yearNow - this.yearOfBirth;
+    }
+    
+    static seyHallo(){
+        console.log('Hi, there!!!')
+    }
+}
 
+class Athlet extends Person {
+    
+    constructor(name, yearOfBirth, job,olimpicGames,medals){
+        super(name, yearOfBirth, job);
+        this.olimpicGames = olimpicGames;
+        this.medals = medals;
+    }
+    
+    addMedal(){
+        this.medals++;
+        console.log(`winner with ${this.medals} medals!`);
+    }
+}
+
+const olS = new Athlet('Vadim',2007,'tinager',1,5);
+
+console.log(olS.calcAge());
+olS.addMedal();
 
 
 
