@@ -54,7 +54,7 @@ console.log(test2);
 */
 
 // ES 5
-
+/*
 var box5 = {
     color : 'green',
     position : 1,
@@ -87,6 +87,39 @@ var box6 = {
 }
 
 box6.clickMe();
+*/
+
+function Person(name){
+this.name = name;
+}
+
+// ES5
+Person.prototype.myFrends5 = function(frends) {
+   var arr = frends.map(function(cur){
+      return  this.name+' is friends with '+cur.name;
+    }.bind(this));
+               
+    console.log(arr);
+}
+
+var me = new Person('Sergei')
+var f1 =new Person('freand 1');
+var f2 =new Person('freand 2');
+var f3 =new Person('freand 3');
+
+me.myFrends5([f1,f2,f3]);
+
+Person.prototype.myFrends6 = function(frends) {
+   var arr = frends.map(cur =>
+      `${this.name} is friends with ${cur.name}`
+    );
+               
+    console.log(arr);
+}
+
+new Person('Mike').myFrends6([f1,f2,f3]);
+
+
 
 
 
