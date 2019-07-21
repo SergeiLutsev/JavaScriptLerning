@@ -228,7 +228,7 @@ console.log(el);
 ////////////////////////////////////////////
 ///////////////////////////////////////////
 // spread operator
-
+/*
 function sumNumbers(a,b,c,d){
     return a+b+c+d;
 }
@@ -260,17 +260,50 @@ let boxesA = document.querySelectorAll('.box');
 let all =[h1,...boxesA];
 all.forEach(e => e.style.color ='red');
 
+*/
+//////////////////////////////////////////////
+// Rest parameters
+
+// ES 5
+/*
+function foo(){
+    console.log(arguments);
+    var args = Array.prototype.slice.call(arguments);
+    console.log(args);
+    args.forEach(function(el){
+        console.log(2019-el>18);
+    });    
+}
+
+//foo(1990,2005,1977);
+
+// ES 6
+
+function foo6(...years){
+    console.log(years);
+    years.forEach(e => console.log(2019 - e >= 18));
+}
+foo6(1990,2008,1977);
+
+*/
+/*
+function foo5(limit){
+    var args = Array.prototype.slice.call(arguments,1); // cut first element
+    args.forEach(function(el){
+        console.log('ES5: '+(2019 - el >= limit));
+    });    
+}
+
+foo5(21,1990,2008,1977);
 
 
 
+function foo6(limit,...years){
+    years.forEach(e => console.log('ES6: '+(2019 - e >= limit)));
+}
 
-
-
-
-
-
-
-
+foo6(21,1990,2008,1977);
+*/
 
 
 
