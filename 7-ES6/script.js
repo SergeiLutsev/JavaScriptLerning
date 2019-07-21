@@ -88,6 +88,7 @@ var box6 = {
 
 box6.clickMe();
 */
+/*
 
 function Person(name){
 this.name = name;
@@ -118,6 +119,122 @@ Person.prototype.myFrends6 = function(frends) {
 }
 
 new Person('Mike').myFrends6([f1,f2,f3]);
+
+*/
+
+//******//////////////////////
+//distracting
+
+// ES 5
+/*
+var john = ['John',26];
+var fName = john[0];
+var age = john[1];
+
+// es 6
+let [name, old] =['Tim',34];
+console.log(name,old);
+
+const obj = {
+  firstName : 'Tim',
+    lastName : 'Hortons'
+};
+
+const {firstName, lastName} = obj;
+console.log(firstName,lastName);
+
+const {firstName: a, lastName: b} =obj;
+
+console.log(b,a);
+//---------------------------
+/////////////////////////////
+
+
+function calcRetairment(year){
+    let age = new Date().getFullYear() - year;
+    return [age, 65 - age];
+}
+
+let [ages, retairment] = calcRetairment(1977);
+console.log(ages,retairment);
+*/
+
+
+
+
+//////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+//               ES6  ARRAYS
+let boxes = document.querySelectorAll('.box');
+/*
+console.log(boxes);
+
+
+boxes.forEach(el =>{
+    el.style.backgroundColor = 'Yellow';
+    console.log(el);
+})
+
+let arr = Array.from(boxes);
+console.log(arr);
+arr.forEach(el =>{
+    el.style.backgroundColor = 'Green';
+    console.log(el);
+})
+*/
+
+
+// es5----------
+/*
+for(var i = 0; i<boxes.length;i++){
+    if(boxes[i].className === 'box blue') continue;
+    boxes[i].style.backgroundColor = 'Yellow';
+    boxes[i].textContent = 'I change on Yellow'
+}*/
+
+//es 6-----------
+
+for(let el of boxes){
+    if(el.className.includes('blue')) continue;
+    el.style.backgroundColor = 'Gray';
+    el.textContent = 'I changed to Gray';
+}
+
+
+// es 5
+
+var ages = [12,34,11,18,42,15];
+
+var full= ages.map(function(cur){
+        return cur >= 18 ;
+      });
+console.log(ages);
+console.log(full);
+console.log(full.indexOf(true));
+console.log(ages[full.indexOf(true)]);
+
+// es 6
+
+let idx = ages.findIndex(e =>  e >= 18);
+
+console.log(idx);
+
+let el = ages.find(e => e >= 18);
+
+console.log(el);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
