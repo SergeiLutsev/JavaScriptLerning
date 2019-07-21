@@ -203,7 +203,7 @@ for(let el of boxes){
 
 
 // es 5
-
+/*
 var ages = [12,34,11,18,42,15];
 
 var full= ages.map(function(cur){
@@ -223,8 +223,42 @@ console.log(idx);
 let el = ages.find(e => e >= 18);
 
 console.log(el);
+*/
+
+////////////////////////////////////////////
+///////////////////////////////////////////
+// spread operator
+
+function sumNumbers(a,b,c,d){
+    return a+b+c+d;
+}
+var arr = [18,32,44,55];
+
+//es 5
+
+var sum1 = sumNumbers(18,32,44,55);
+console.log('sum1 = '+sum1);
+
+var sum2 = sumNumbers.apply(null,arr);
+console.log('sum2 = '+ sum2);
+
+// ES6
+
+var sumES6 = sumNumbers(...arr);
+console.log('sumES6 = ' + sumES6);
+
+const famaly_1 = ['Tim','Mike','Bill'];
+const famaly_2 = ['Emely','Bridgit','Nikola'];
+
+const bigfamely = [...famaly_1,'Lily','Huan',...famaly_2];
+console.log(bigfamely);
 
 
+let h1 = document.querySelector('h1');
+let boxesA = document.querySelectorAll('.box');
+
+let all =[h1,...boxesA];
+all.forEach(e => e.style.color ='red');
 
 
 
