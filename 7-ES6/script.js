@@ -338,7 +338,7 @@ function smithFamely(firstName, yearOfBirth, lastName = 'Smith', nationality = '
 
 ///////////////////////////////////////////////////////////
 ///   MAPS
-
+/*
 const question = new Map();
 question.set('question','What is the best car of the world?');
 question.set(1,'BMW');
@@ -357,12 +357,12 @@ if(question.has(4)){
 
 //question.clear();
 console.log(question.get('question'));
-/*
+
 question.forEach((value,key) =>{
     if(typeof(key) ===  'number')
     console.log(`${key} => ${value}`);
 });
-*/
+
 
 for(let [key, value] of question.entries()){
     if(typeof(key) === 'number')
@@ -373,7 +373,34 @@ let ans = parseInt(prompt('Entre you answer: '));
 
 console.log(question.get(question.get('answ') === ans));
 
+*/
 
+///////////////////////////////////////////////////////
+// Classes
+
+class Person{
+
+    constructor(name, yearOfBirth, job){
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+        this.yearNow = new Date().getFullYear();
+    }
+    
+    calcAge(){
+        return this.yearNow - this.yearOfBirth;
+    }
+    
+    static seyHallo(){
+        console.log('Hi, there!!!')
+    }
+}
+
+let ser = new Person('Sergei',1977,'Java developer');
+console.log(ser.calcAge());
+console.log(ser.yearNow);
+
+Person.seyHallo();
 
 
 
