@@ -306,8 +306,9 @@ foo6(21,1990,2008,1977);
 */
 
 ///////////////////////////////////////////////////
-// defoult parameters
+// default parameters
 
+/*
 // es5
 function smithFamely(firstName, yearOfBirth, lastName, nationality){
     
@@ -331,6 +332,64 @@ function smithFamely(firstName, yearOfBirth, lastName = 'Smith', nationality = '
     this.nationality = nationality;
     
 }
+*/
+
+
+
+///////////////////////////////////////////////////////////
+///   MAPS
+
+const question = new Map();
+question.set('question','What is the best car of the world?');
+question.set(1,'BMW');
+question.set(2,'Mercedes');
+question.set(3,'Lada');
+question.set(4,'Ford');
+question.set('answ',3);
+question.set(true,'Yes, you\'r right!!');
+question.set(false,'WTF? it is bul shit and not a car!!! try again');
+
+//console.log(question);
+
+if(question.has(4)){
+    //question.delete(4);
+}
+
+//question.clear();
+console.log(question.get('question'));
+/*
+question.forEach((value,key) =>{
+    if(typeof(key) ===  'number')
+    console.log(`${key} => ${value}`);
+});
+*/
+
+for(let [key, value] of question.entries()){
+    if(typeof(key) === 'number')
+        console.log(` ${key} => ${value}`);
+}
+
+let ans = parseInt(prompt('Entre you answer: '));
+
+console.log(question.get(question.get('answ') === ans));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
