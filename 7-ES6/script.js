@@ -305,8 +305,32 @@ function foo6(limit,...years){
 foo6(21,1990,2008,1977);
 */
 
+///////////////////////////////////////////////////
+// defoult parameters
 
+// es5
+function smithFamely(firstName, yearOfBirth, lastName, nationality){
+    
+    lastName = lastName === undefined ? 'Smith' : lastName;
+    nationality = nationality === undefined ? 'canadian' : nationality;
+    
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+    
+}
 
+// es6
+
+function smithFamely(firstName, yearOfBirth, lastName = 'Smith', nationality = 'Canadian'){
+    
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+    
+}
 
 
 
