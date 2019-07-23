@@ -31,10 +31,12 @@ class Park extends Unit {
 }
 
 class Street extends Unit {
+    static totalkm = 0;
     constructor(name, buildYear, length = 0, sizeClass = sizeClassificatior.get('normal')){
         super(name, buildYear);
         this.length = length;
         this.sizeClass =sizeClass;
+        Street.totalkm+=length;
     }
     printRep(){
     console.log(`${this.name}, build in ${this.buildYear}, is a ${this.sizeClass} stret`);
@@ -91,6 +93,7 @@ console.log(`Our ${streets.length} have a total ${totalLength} km, with an avera
 
 streets.forEach(st => st.printRep());
 
+console.log(Street.totalkm);
 
 
 
