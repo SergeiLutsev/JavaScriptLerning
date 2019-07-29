@@ -55,23 +55,39 @@
 
         // resepies();
         // console.log(new Date());
-        
-            //******************************************
-            /// PROMESES
 
-            const getIds = new Promise((resolve,reject) =>{
-                setTimeout(()=>{
-                    resolve([123, 564, 587, 968]);
-                },1500);
-            });
+        //******************************************
+        /// PROMESES
 
-            getIds
-                .then((IDs) =>{
-                console.log(IDs);
+        let getIds = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                let mp = new Map();
+                mp.set(125, 'Canada');
+                mp.set(365, 'USA');
+                mp.set(894, 'Mexico');
+                mp.set(785, 'Argentina');
+                resolve(mp);
+            }, 2000);
+        });
+
+        let getCountryById = (id, mp) => {
+            setTimeout(() => {
+                 new Promise((resolve, reject) => {
+                    resolve(mp.get(id));
                 })
-                .catch((errors)=>{
-                    console.log('Errors');
-                });
+            }, 2500, id, mp);
+        }
+
+
+        getIds.then(arr => {
+            console.log(arr);
+            return arr;
+        }).then((mp) =>{
+           return getCountryById(365,mp);
+        }).then((con) =>{
+           // console.log(`${id} : ${con}`);
+           console.log(con);
+        });
 
     </script>
 </body>
