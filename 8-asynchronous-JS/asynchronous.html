@@ -30,31 +30,49 @@
 
         // first();
 
-        const resepies = () => {
-            setTimeout(() => {
-                const arr = [123, 564, 587, 968];
-                console.log(arr, new Date());
-                setTimeout((id) => {
-                    const recipt = {
-                        title: 'Fresh pizza',
-                        pablisher: 'John Smith'
-                    };
-                    console.log(`${id}: ${recipt.title}`, new Date());
+        // const resepies = () => {
+        //     setTimeout(() => {
+        //         const arr = [123, 564, 587, 968];
+        //         console.log(arr, new Date());
+        //         setTimeout((id) => {
+        //             const recipt = {
+        //                 title: 'Fresh pizza',
+        //                 pablisher: 'John Smith'
+        //             };
+        //             console.log(`${id}: ${recipt.title}`, new Date());
 
-                    setTimeout(pablsh => {
-                        const recipt2 = {
-                            title: 'Smoke fish',
-                            pablisher: pablsh
-                        };
-                        console.log(`${recipt2.pablisher} => ${recipt2.title}`, new Date());
+        //             setTimeout(pablsh => {
+        //                 const recipt2 = {
+        //                     title: 'Smoke fish',
+        //                     pablisher: pablsh
+        //                 };
+        //                 console.log(`${recipt2.pablisher} => ${recipt2.title}`, new Date());
 
-                    }, 3500, recipt.pablisher);
-                }, 2000, arr[2]);
-            }, 1500);
-        };
+        //             }, 3500, recipt.pablisher);
+        //         }, 2000, arr[2]);
+        //     }, 1500);
+        // };
 
-        resepies();
-        console.log(new Date());
+        // resepies();
+        // console.log(new Date());
+        
+            //******************************************
+            /// PROMESES
+
+            const getIds = new Promise((resolve,reject) =>{
+                setTimeout(()=>{
+                    resolve([123, 564, 587, 968]);
+                },1500);
+            });
+
+            getIds
+                .then((IDs) =>{
+                console.log(IDs);
+                })
+                .catch((errors)=>{
+                    console.log('Errors');
+                });
+
     </script>
 </body>
 
