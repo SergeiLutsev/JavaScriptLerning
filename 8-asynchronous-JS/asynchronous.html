@@ -90,20 +90,34 @@
             });
         };
 
-        getIds
-            .then(IDs => {
+        // getIds
+        //     .then(IDs => {
+        //         console.info(IDs);
+        //         return getRecipe(IDs[2]);
+        //     })
+        //     .then(recipe => {
+        //         console.info(recipe);
+        //         return getRelated('Marcus');
+        //     }).then(rec2 =>{
+        //         console.log(rec2);
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
+
+            async function getREscipes(){
+                let IDs = await getIds;
                 console.info(IDs);
-                return getRecipe(IDs[2]);
-            })
-            .then(recipe => {
+                let recipe = await getRecipe(IDs[2]);
                 console.info(recipe);
-                return getRelated('Marcus');
-            }).then(rec2 =>{
+                let rec2 = await getRelated('Marcus');
                 console.log(rec2);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+
+                return rec2.title;
+            }
+            getREscipes()
+            .then(result =>console.log(result));
+
     </script>
 </body>
 
