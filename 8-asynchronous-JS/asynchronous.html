@@ -123,15 +123,15 @@
         let getWether = (woid) => {
             fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woid}/`)
                 .then(result => {
-                 //   console.log(result);
+                    //   console.log(result);
                     return result.json();
                 })
                 .then(data => {
-                  //  console.log(data);
+                    //  console.log(data);
                     let today = data.consolidated_weather[0];
                     console.log(
                         `Temperature in ${data.title} in ${data.time} in range ${today.min_temp} - ${today.max_temp}`
-                        );
+                    );
 
                 })
                 .catch(error => {
@@ -141,7 +141,30 @@
 
         getWether(2487956);
         getWether(44418);
-       // getWether(64946);
+
+        async function getWetherAW(woid) {
+            try {
+                let response = await fetch(
+                    `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woid}/`);
+                let data = await response.json();
+                let tomorow = data.consolidated_weather[1];
+                console.log(
+                    `Temperature Tomorow in ${data.title} in ${data.time} in range ${tomorow.min_temp} - ${tomorow.max_temp}`
+                );
+                return data;
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+        getWetherAW(2487956);
+        let dataLondon;
+        getWetherAW(44418).then(data => {
+            dataLondon = data;
+            console.log( dataLondon);
+        });
+
+        console.log('------' + dataLondon);
     </script>
 </body>
 
