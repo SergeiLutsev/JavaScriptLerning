@@ -1,7 +1,10 @@
-
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import {elements, renderLoader, clearLoader} from './views/base';
+import {
+    elements,
+    renderLoader,
+    clearLoader
+} from './views/base';
 import Recipe from './models/Recipe';
 
 /** Global state of the app
@@ -12,11 +15,11 @@ import Recipe from './models/Recipe';
  */
 const state = {};
 
-const controlSearch = async () =>{
+const controlSearch = async () => {
     // 1) Get query from view
     const query = searchView.getInput();
     console.log(query);
-    if(query){
+    if (query) {
         //2) New search object and add to state
         state.search = new Search(query);
 
@@ -24,38 +27,64 @@ const controlSearch = async () =>{
         searchView.clearInput();
         searchView.clearResults();
         renderLoader(elements.searchRes);
-        //4) Search for recipes
-       await state.search.getResult();
+        try {
+            //4) Search for recipes
+            await state.search.getResult();
 
-        //5) Render results on UI
-        clearLoader();
-        searchView.renderResults(state.search.results);
+            //5) Render results on UI
+            clearLoader();
+            searchView.renderResults(state.search.results);
+
+        } catch (err) {
+            alert(err);
+            clearLoader();
+        }
     }
 };
 
-elements.searchForm.addEventListener('submit', e =>{
+elements.searchForm.addEventListener('submit', e => {
     e.preventDefault(); // prevent standart events... like reload page
     controlSearch();
 });
 
 
 
-elements.searchResPages.addEventListener('click', e =>{
+elements.searchResPages.addEventListener('click', e => {
     const btn = e.target.closest('.btn-inline');
-    if(btn){
-        const goToPage = parseInt(btn.dataset.goto,10);
+    if (btn) {
+        const goToPage = parseInt(btn.dataset.goto, 10);
         searchView.clearResults();
-        searchView.renderResults(state.search.results,goToPage);
-    }   
+        searchView.renderResults(state.search.results, goToPage);
+    }
 });
 
 
 /**
-* Recipe controller
-*/
+ * Recipe controller
+ */
+const controlRecipe = async () => {
+    // get id from URL
+    const id = window.location.hash.replace('#', '');
+    if (id) {
+        // prepere UI changes
 
-const r = new Recipe(46956);
- r.getRecipe();
-console.log(r);
+        // create new recipe object
+        state.recipe = new Recipe(id);
+        try {
+            // get recipe data
+            await state.recipe.getRecipe();
+            // calculate servising and time
+            state.recipe.calcTime();
+            state.recipe.calcServings();
+            // render recipe
+            console.log(state.recipe);
+        } catch (err) {
+            alert('Error proccessing recipe');
+        }
+    }
+};
 
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load',controlRecipe);
 
+['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
