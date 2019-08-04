@@ -1,36 +1,109 @@
 import axios from 'axios';
-import {key,proxy} from '../config';
+import {
+    key,
+    proxy
+} from '../config';
 
-export default class Recipe{
+import tmpIngredients from '../data/pizza_ingredients';
 
-        constructor(id){
-            this.id = id;
+export default class Recipe {
+
+    constructor(id) {
+        this.id = id;
+    }
+
+    async getRecipe() {
+        try {
+            //const res =await axios(`${proxy}https://www.food2fork.com/api/get?key=${key}&rId=${this.id}`);
+            const res = tmpIngredients;
+            this.title = res.data.recipe.title;
+            this.autor = res.data.recipe.publisher;
+            this.img = res.data.recipe.image_url;
+            this.url = res.data.recipe.source_url;
+            this.ingredients = res.data.recipe.ingredients;
+
+        } catch (err) {
+            console.log(err)
+            alert('Something went wrong :(');
         }
+    }
 
-        async getRecipe() {
-            try{              
-                const res =await axios(`${proxy}https://www.food2fork.com/api/get?key=${key}&rId=${this.id}`);
-                this.title = res.data.recipe.title;
-                this.autor =  res.data.recipe.publisher;
-                this.img = res.data.recipe.image_url;
-                this.url = res.data.recipe.source_url;
-                this.ingredients = res.data.recipe.ingredients;
+    calcTime() {
+        // Assuming that we need 15 min for each 3 ingredients
+        const numIng = this.ingredients.length;
+        const period = Math.ceil(numIng / 3);
+        this.time = period * 15;
+    }
 
-            }catch(err){
-                console.log(err)
-                alert('Something went wrong :(');
+    calcServings() {
+        this.servings = 4;
+    }
+
+    parseIngrerients() {
+        const unitMap = new Map();
+        unitMap.set('tablespoons', 'tbsp');
+        unitMap.set('tablespoon', 'tbsp');
+        unitMap.set('ounces', 'oz');
+        unitMap.set('ounce', 'oz');
+        unitMap.set('teaspoons', 'tsp');
+        unitMap.set('teaspoon', 'tsp');
+        unitMap.set('cups', 'cup');
+        unitMap.set('pounds', 'pound');
+
+        const unitsShort = Array.from(unitMap.values());
+
+        const newIngrerians = this.ingredients.map(el => {
+            // 1) uniform units
+            let ingredient = el.toLowerCase();
+            unitMap.forEach((value, key) => {
+                ingredient = ingredient.replace(key, value);
+            });
+
+
+            // 2) Remove parenteses
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
+            // 3) Parse ingredients in to count, unit and ingredient
+            const arrIng = ingredient.split(' ');
+            const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+
+            let objIng;
+            if (unitIndex > -1) {
+                //there is a unit
+                const arrCount = arrIng.slice(0, unitIndex); //Ex. 4 1/2 cups, arrCount is [4, 1/2]
+                let count;
+                if (arrCount.length === 1) {
+                    count = eval(arrCount[0].replace('-', '+'));
+                } else {
+                    count = eval(arrCount.join('+'));
+                }
+
+                objIng = {
+                    count,
+                    unit: arrIng[unitIndex],
+                    ingredient: arrIng.slice(unitIndex + 1).join(' ')
+                };
+
+            } else if (parseInt(arrIng[0], 10)) {
+                // There NO unit, but 1st element is number
+                objIng = {
+                    count: parseInt(arrIng[0], 10),
+                    unit: '',
+                    ingredient: arrIng.slice(1).join(' ')
+                }
+
+            } else if (unitIndex === -1) {
+                //there is NO unit
+                objIng = {
+                    count: 1,
+                    unit: '',
+                    ingredient
+                }
             }
-        }
 
-        calcTime(){
-            // Assuming that we need 15 min for each 3 ingredients
-            const numIng = this.ingredients.length;
-            const period = Math.ceil(numIng/3);
-            this.time =period*15;
-        }
+            return objIng;
 
-        calcServings(){
-            this.servings=4;
-        }
+        });
+        this.ingredients = newIngrerians;
+    }
 
 }
