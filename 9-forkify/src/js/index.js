@@ -2,6 +2,7 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
 import {elements, renderLoader, clearLoader} from './views/base';
+import Recipe from './models/Recipe';
 
 /** Global state of the app
  *  - Search object
@@ -33,7 +34,7 @@ const controlSearch = async () =>{
 };
 
 elements.searchForm.addEventListener('submit', e =>{
-    e.preventDefault(); // prevent stundart events... like reload page
+    e.preventDefault(); // prevent standart events... like reload page
     controlSearch();
 });
 
@@ -49,7 +50,12 @@ elements.searchResPages.addEventListener('click', e =>{
 });
 
 
+/**
+* Recipe controller
+*/
 
-//84b8096a36326982d3942b20011ce9d4 
-//https://www.food2fork.com/api/search
-//https://www.food2fork.com/api/get
+const r = new Recipe(46956);
+ r.getRecipe();
+console.log(r);
+
+

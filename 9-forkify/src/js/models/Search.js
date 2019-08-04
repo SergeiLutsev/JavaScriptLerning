@@ -1,5 +1,6 @@
 import axios from 'axios';
 import tempData from '../data/pizza'
+import {key,proxy} from '../config'
 
 
 
@@ -9,10 +10,9 @@ export default class Search {
     }
 
     async getResult() {
-        const proxy = 'https://cors-anywhere.herokuapp.com/';
-        const key ='462b1cc8d4f2730081462fbc65136320';//'84b8096a36326982d3942b20011ce9d4';//'462b1cc8d4f2730081462fbc65136320'; 
+       
         try {
-           // const res = await axios(`${proxy}https://www.food2fork.com/api/search?key=${key}&q=${this.query}`);
+            //const res = await axios(`${proxy}https://www.food2fork.com/api/search?key=${key}&q=${this.query}`);
            // console.log(res);
             
             const res = tempData;
