@@ -51,7 +51,7 @@ export default class Recipe {
         unitMap.set('pounds', 'pound');
 
         const unitsShort = Array.from(unitMap.values());
-        const units = [...unitsShort,'kg','g'];
+        const units = [...unitsShort, 'kg', 'g'];
 
         const newIngrerians = this.ingredients.map(el => {
             // 1) uniform units
@@ -105,6 +105,18 @@ export default class Recipe {
 
         });
         this.ingredients = newIngrerians;
+    }
+
+    updateServings(type) {
+        // servings
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+        
+        // Ingridirnts
+        this.ingredients.forEach(ing => {
+            ing.count *= (newServings / this.servings);
+        });
+
+        this.servings = newServings;
     }
 
 }
