@@ -7,6 +7,7 @@ import {
     clearLoader
 } from './views/base';
 import Recipe from './models/Recipe';
+import List from './models/List';
 
 /** Global state of the app
  *  - Search object
@@ -114,3 +115,7 @@ elements.recipe.addEventListener('click', e =>{
     }
     console.log(state.recipe);
 });
+
+
+const l = new List();
+window.l = l;
