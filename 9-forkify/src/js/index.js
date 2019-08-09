@@ -2,6 +2,7 @@ import Search from './models/Search';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listViev from './views/listview'
+
 import {
     elements,
     renderLoader,
@@ -17,6 +18,9 @@ import List from './models/List';
  *  - Liked recipes
  */
 const state = {};
+window.state = state;
+
+
 
 const controlSearch = async () => {
     // 1) Get query from view
@@ -110,6 +114,23 @@ const controlList =() => {
        listViev.renderItem(item);
     });
 };
+
+//Handle delete and updata list items events
+elements.shopingList.addEventListener('click', e =>{
+    const id = e.target.closest('.shopping__item').dataset.itemid;
+
+    // Handle the delete button
+    if(e.target.matches('.shopping__delete, .shopping__delete *')){
+        // delete from state
+        state.list.deleteItem(id);
+        //delete from UI
+        listViev.deleteItem(id);
+    }else if(e.target.matches('.shopping__count-value')){
+        //up date state list
+        const newCount =parseFloat(e.target.value,10);
+        state.list.updateCount(id,newCount);
+    }
+});
 
 
 // window.addEventListener('hashchange', controlRecipe);
