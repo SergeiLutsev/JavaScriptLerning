@@ -19,8 +19,7 @@ export default class Likes{
         this.likes.splice(idx,1);
     }
 
-    isLike(id){
-        //this.likes.includes(e=> e.id === id);
+    isLiked(id){
         return this.likes.findIndex(e => e.id === id) !== -1;
     }
 
