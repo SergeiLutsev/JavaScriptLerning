@@ -11,6 +11,7 @@ const formatCount =(count)=>{
 
         // count = 2.5 ---> 2 1/2
         // count = 0,5 ---> 1/2
+        count = Math.round(count*10000)/10000;
         const [int,dec] = count.toString().split('.').map(el => parseInt(el));
     
         if(!dec) return count;
@@ -80,7 +81,7 @@ export const renderRecipe = (recipe,isLiked)=>{
                 <svg class="header__likes">
                     <use href="img/icons.svg#icon-heart-outlined"></use>
                 </svg>
-            </button>
+            </button>newLike
         </div>
 
 

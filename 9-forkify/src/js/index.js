@@ -21,9 +21,6 @@ import Likes from './models/Likes'
  *  - Liked recipes
  */
 const state = {};
-window.state = state;
-
-
 
 const controlSearch = async () => {
     // 1) Get query from view
@@ -119,11 +116,11 @@ const controlList =() => {
        listViev.renderItem(item);
     });
 };
+
 /**
  * LIKE CONTROLL
  */
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumberLikes());
+
 const controlLike =()=>{
     // create new like object
     if(!state.likes){
@@ -150,6 +147,16 @@ const controlLike =()=>{
    likesView.toggleLikeMenu(state.likes.getNumberLikes());
 
 };
+// restore Likes when page load
+window.addEventListener('load',()=>{
+    state.likes = new Likes();
+    //restore Likes
+    state.likes.readStorage();
+    //toggle like button
+    likesView.toggleLikeMenu(state.likes.getNumberLikes());
+    //render likes
+    state.likes.likes.forEach(el => {likesView.renderLike(el)});
+});
 
 
 //Handle delete and updata list items events
@@ -195,6 +202,3 @@ elements.recipe.addEventListener('click', e =>{
     
 });
 
-
-const l = new List();
-window.l = l;
