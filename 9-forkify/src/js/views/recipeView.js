@@ -1,5 +1,6 @@
 import {elements} from '../views/base'
 import {Fraction} from 'fractional';
+import {toggleLikeBtn} from './likesView';
 
 export const cleareResult=()=>{
     elements.recipe.innerHTML='';
@@ -37,7 +38,7 @@ const createIngridient = (ingredient) =>`
         </li>
 `;
 
-export const renderRecipe = (recipe)=>{
+export const renderRecipe = (recipe,isLiked)=>{
     const markup = `
         <figure class="recipe__fig">
             <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
@@ -114,6 +115,7 @@ export const renderRecipe = (recipe)=>{
     `;
 
 elements.recipe.insertAdjacentHTML('afterbegin',markup);
+toggleLikeBtn(isLiked);
 };
 
 export const updateServingsIngridients = recipe => {

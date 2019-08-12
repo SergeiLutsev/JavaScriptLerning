@@ -14,11 +14,11 @@ export const clearResults = () => {
 }
 
 export const highlightSelected = (id)=>{
-    const resultsArr = Array.from(document.querySelectorAll('.results__link--active'));
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
     resultsArr.forEach(el =>{
         el.classList.remove('results__link--active');
     });
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href*="#${id}"]`).classList.add('results__link--active');
 };
 
 const limitRecipeTitle = (title, limit = 17) => {
@@ -33,7 +33,7 @@ const limitRecipeTitle = (title, limit = 17) => {
     return str + '...';
 }
 
-const limitRecipeTitle2 = (title = '', limit = 17) => {
+export const limitRecipeTitle2 = (title = '', limit = 17) => {
     if (title.length <= limit) return title;
     let str = title.substr(0, limit);
     if (title.substr(limit) != ' ') {

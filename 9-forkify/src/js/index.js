@@ -1,7 +1,8 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
-import * as listViev from './views/listview'
+import * as listViev from './views/listview';
+import * as likesView from './views/likesView';
 
 import {
     elements,
@@ -95,9 +96,11 @@ const controlRecipe = async () => {
             state.recipe.calcServings();
             // render recipe
             clearLoader();
-            recipeView.renderRecipe(state.recipe);
+
+            recipeView.renderRecipe(state.recipe,state.likes.isLiked(id));
         } catch (err) {
-            alert('Error proccessing recipe');
+            alert('Error proccessing recipe:');
+            console.log(err);
         }
     }
 };
@@ -116,11 +119,11 @@ const controlList =() => {
        listViev.renderItem(item);
     });
 };
-
 /**
  * LIKE CONTROLL
  */
-
+state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumberLikes());
 const controlLike =()=>{
     // create new like object
     if(!state.likes){
@@ -131,18 +134,20 @@ const controlLike =()=>{
         // add to the state
         const newLike = state.likes.addLike(currentId,state.recipe.title,state.recipe.autor,state.recipe.img);
         // togle the like button
-
+            likesView.toggleLikeBtn(true);
         //add like to UI list
+        likesView.renderLike(newLike);
         
     }else{
         //remove from state
         state.likes.deleteLIke(currentId);
         // togle the like button
-
+        likesView.toggleLikeBtn(false);
         //remove like from UI
-
+        likesView.deleteLike(currentId);
     }
-    console.log(state.likes);
+   
+   likesView.toggleLikeMenu(state.likes.getNumberLikes());
 
 };
 
